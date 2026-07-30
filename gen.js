@@ -84,6 +84,8 @@ leads.forEach(l => {
   const pk = payKo(l.pay); l.payKoTxt = pk.ko; l.payG = pk.g;
   l.qtyKo = qtyKo(l.qty);
   l.specKo = specKo(l.specs);
+  const mm = (l.url || '').match(/buyleads\/(\d+)\/(.+)$/);
+  l.origUrl = mm ? 'https://www.go4worldbusiness.com/buylead/view/' + mm[1] + '/' + mm[2] + '.html' : '';
 });
 
 const byC = {};
@@ -150,7 +152,9 @@ select{border:1px solid var(--border);border-radius:10px;padding:11px 12px;font-
 .specs{font-size:12.5px;color:var(--muted);line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
 .btn{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:7px;background:var(--accent);color:#fff;border-radius:10px;padding:11px;font-size:14px;font-weight:700;text-decoration:none;transition:.14s;}
 .btn:hover{background:var(--accent-d);}
-.btn:focus-visible{outline:3px solid rgba(10,132,194,.35);outline-offset:2px;}
+.btn:focus-visible,.btn2:focus-visible{outline:3px solid rgba(10,132,194,.35);outline-offset:2px;}
+.btn2{display:flex;align-items:center;justify-content:center;gap:5px;color:var(--muted);font-size:12.5px;font-weight:600;text-decoration:none;padding:7px;margin-top:-2px;border-radius:8px;transition:.14s;}
+.btn2:hover{color:var(--accent);background:var(--chip);}
 .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 20px;font-size:15px;}
 .foot{margin-top:34px;color:var(--muted);font-size:12.5px;border-top:1px solid var(--border);padding-top:16px;line-height:1.7;}
 @media (max-width:560px){.wrap{padding:20px 14px 48px;}.grid{grid-template-columns:1fr;}}
@@ -232,6 +236,7 @@ const SCRIPT_BODY = [
 "      (meta?'<div class=\"meta\">'+meta+'</div>':'')+",
 "      (l.specKo?'<div class=\"specs\">'+esc(l.specKo)+'</div>':'')+",
 "      '<a class=\"btn\" href=\"'+esc(l.url)+'\" target=\"_blank\" rel=\"noopener\">지금 문의하세요 →</a>'+",
+"      (l.origUrl?'<a class=\"btn2\" href=\"'+esc(l.origUrl)+'\" target=\"_blank\" rel=\"noopener\">원문 링크 보러가기 ↗</a>':'')+",
 "    '</div>';",
 "  }).join('');",
 "}",
